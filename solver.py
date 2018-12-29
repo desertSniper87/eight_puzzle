@@ -110,12 +110,82 @@ class Board(object):
         :returns: TODO
 
         """
-        
+
         goal = make_goal_matrix()
+        c = 1
+        manhattan = 0
+        for i in range(CONST_DIM):
+            for j in range(CONST_DIM):
+                goal[i][j] = c
+
+                if c == max():
+                    c = 0
+
+                else:
+                    c += 1
+
+                if self.a[i][j] != 0 and self.a[i][j] != goal[i][j]:
+                    row = a[i][j] // CONST_DIM
+
+                    if self.a[i][j] % CONST_DIM == 0:
+                        row -= 1
+
+                    row = abs(i - row)
+
+                    col = (self.a[i][j] - 1) % CONST_DIM
+                    col = abs(j - col)
+
+                    manhattan = row + col
+
+        return manhattan
+
+    def blank_row(self):
+        """TODO: Docstring for blank_row.
+        :returns: TODO
+
+        """
+        for i in range(CONST_DIM):
+            for j in range(CONST_DIM):
+                if self.a[i][j] == 0:
+                    return i
+
+
+         return i       
+
+
+     def blank_col(self):
+         """TODO: Docstring for blank_col.
+         :returns: TODO
+
+         """
+         for i in range(CONST_DIM):
+             for j in range(CONST_DIM):
+                 if self.a[i][j] == 0:
+                     return j
 
 
 
- 
+        return i
+
+
+    def size(self):
+        """TODO: Docstring for size.
+
+        :returns: TODO
+
+        """
+        return CONST_DIM**2
+
+
+    def inversion_count(self):
+        size = 0
+        demo = 0
+
+
+
+
+
+
 
 
 
