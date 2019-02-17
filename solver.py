@@ -14,7 +14,7 @@ def max():
     return CONST_DIM**2 - 1
 
 def make_goal_matrix():
-    goal = [0 for x in range(CONST_DIM) for y in range(CONST_DIM)]
+    goal = [[(x + y * CONST_DIM) % CONST_DIM**2 for x in range(1, CONST_DIM + 1)] for y in range(CONST_DIM)]
     return goal
 
 
@@ -31,19 +31,14 @@ class Board(object):
     """Docstring for Board. """
 
 
-    def __init__(self):
-        """TODO: to be defined1. """
+    def __init__(self, blocks=None, ):
+        """TODO: to be defined. """
 
-        self.a = None
+        self.blocks = blocks
         self.f = 0
         self.g = 0
         self.h = self.manhattan()
 
-
-
-    @classmethod
-    def board_from_blocks(cls, blocks):
-        cls.a = blocks
 
 
     def print_elements(self):
@@ -52,7 +47,7 @@ class Board(object):
 
         """
 
-        print(self.a)
+        print(self.blocks)
 
     def is_goal(self):
         """TODO: Docstring for is_goal.
@@ -63,15 +58,7 @@ class Board(object):
         n = 1
         for i in range(CONST_DIM):
             for j in range(CONST_DIM):
-                goal[i][j] = c
-
-                if c == max():
-                    c = 0
-
-                else:
-                    c+=1
-
-                if self.a[i][j] != goal[i][j]:
+                if self.blocks[i][j] != goal[i][j]:
                     return False
 
 
@@ -99,7 +86,7 @@ class Board(object):
                 else:
                     c+=1
 
-                if self.a[i][j] != 0 and self.a[i][j] != goal[i][j]:
+                if self.blocks[i][j] != 0 and self.blocks[i][j] != goal[i][j]:
                     hamming += 1
 
 
@@ -116,23 +103,19 @@ class Board(object):
         manhattan = 0
         for i in range(CONST_DIM):
             for j in range(CONST_DIM):
-                goal[i][j] = c
+                print(i, j)
+                print(self.blocks[i][j])
+                print(goal[i][j])
 
-                if c == max():
-                    c = 0
+                if self.blocks[i][j] != 0 and self.blocks[i][j] != goal[i][j]:
+                    row = self.blocks[i][j] // CONST_DIM
 
-                else:
-                    c += 1
-
-                if self.a[i][j] != 0 and self.a[i][j] != goal[i][j]:
-                    row = a[i][j] // CONST_DIM
-
-                    if self.a[i][j] % CONST_DIM == 0:
+                    if self.blocks[i][j] % CONST_DIM == 0:
                         row -= 1
 
                     row = abs(i - row)
 
-                    col = (self.a[i][j] - 1) % CONST_DIM
+                    col = (self.blocks[i][j] - 1) % CONST_DIM
                     col = abs(j - col)
 
                     manhattan = row + col
@@ -146,22 +129,22 @@ class Board(object):
         """
         for i in range(CONST_DIM):
             for j in range(CONST_DIM):
-                if self.a[i][j] == 0:
+                if self.blocks[i][j] == 0:
                     return i
 
 
-         return i       
+        return i       
 
 
-     def blank_col(self):
-         """TODO: Docstring for blank_col.
+    def blank_col(self):
+        """TODO: Docstring for blank_col.
          :returns: TODO
 
          """
-         for i in range(CONST_DIM):
-             for j in range(CONST_DIM):
-                 if self.a[i][j] == 0:
-                     return j
+        for i in range(CONST_DIM):
+            for j in range(CONST_DIM):
+                if self.blocks[i][j] == 0:
+                    return j
 
 
 
@@ -180,19 +163,23 @@ class Board(object):
     def inversion_count(self):
         size = 0
         demo = 0
+        len = CONST_DIM ** 2
+        array = [0 for _ in len]
 
+        for i in range(CONST_DIM):
+            for j in range(CONST_DIM):
+                if self.blocks[i][j] > 0:
+                    array[demo] = self.blocks[i][j]
+                    demo += 1
 
+        size = invC(array)
+        return size
 
+    def invC(self, array):
+        count = 0
+        for i in range(len(array)):
+            for j in range(i):
+                if array[i] < array[j]:
+                    count += 1
 
-
-
-
-
-
-
-
-
-
-
-
-
+        return count
