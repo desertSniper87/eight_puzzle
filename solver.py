@@ -4,7 +4,7 @@
 # Date              : 29.12.2018
 # Last Modified Date: 29.12.2018
 
-CONST_DIM = 6
+from settings import CONST_DIM
 
 def max():
     """TODO: Docstring for max.
@@ -65,10 +65,9 @@ class Board(object):
         return True
 
 
-    def hamming(self, arg1):
+    def hamming(self):
         """TODO: Docstring for hamming.
 
-        :arg1: TODO
         :returns: TODO
 
         """
@@ -103,9 +102,6 @@ class Board(object):
         manhattan = 0
         for i in range(CONST_DIM):
             for j in range(CONST_DIM):
-                print(i, j)
-                print(self.blocks[i][j])
-                print(goal[i][j])
 
                 if self.blocks[i][j] != 0 and self.blocks[i][j] != goal[i][j]:
                     row = self.blocks[i][j] // CONST_DIM
@@ -183,3 +179,10 @@ class Board(object):
                     count += 1
 
         return count
+
+    # def go(self, direction):
+    #     current_row =
+    #
+    #     if direction == 'UP':
+
+
