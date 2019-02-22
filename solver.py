@@ -196,16 +196,25 @@ class Board(object):
             raise ValueError("TODO")
 
 
+        blocks = _cpy(self.blocks)
+
         if direction == 'UP':
-            blocks = _cpy(self.blocks)
+            x_position = current_zero_row - 1
+            y_position = current_zero_column
 
-            swapping_piece = blocks[current_zero_row-1][current_zero_column]
-            print("swapping_piece: ", swapping_piece)
+        elif direction == 'DOWN':
+            x_position = current_zero_row + 1
+            y_position = current_zero_column
 
-            blocks[current_zero_row -1][current_zero_column] = 0
-            blocks[current_zero_row][current_zero_column] = swapping_piece
 
-            return Board(blocks)
+        swapping_piece = blocks[x_position][y_position]
+        print("swapping_piece: ", swapping_piece)
+
+        blocks[x_position][y_position] = 0
+        blocks[current_zero_row][current_zero_column] = swapping_piece
+
+        return Board(blocks)
+
 
 
 

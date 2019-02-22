@@ -33,4 +33,7 @@ if __name__ == '__main__':
     changed_board = initial.go('UP')
     changed_board.print_elements()
 
+    changed_board = initial.go('DOWN')
+    changed_board.print_elements()
+
 
