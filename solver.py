@@ -189,10 +189,12 @@ class Board(object):
         current_zero_row = self.row_containing_blank_piece()
         current_zero_column = self.column_containing_blank_piece()
 
+        board_move_limit = CONST_DIM - 1
+
         if ((direction == 'UP' and current_zero_row == 0) or
-                (direction == 'DOWN' and current_zero_row == CONST_DIM) or
+                (direction == 'DOWN' and current_zero_row == board_move_limit) or
                 (direction == 'LEFT' and current_zero_column == 0) or
-                (direction == 'RIGHT' and current_zero_column == CONST_DIM)):
+                (direction == 'RIGHT' and current_zero_column == board_move_limit)):
             raise ValueError("TODO")
 
 
@@ -206,6 +208,13 @@ class Board(object):
             x_position = current_zero_row + 1
             y_position = current_zero_column
 
+        elif direction == 'LEFT':
+            x_position = current_zero_row
+            y_position = current_zero_column - 1
+
+        elif direction == 'RIGHT':
+            x_position = current_zero_row
+            y_position = current_zero_column + 1
 
         swapping_piece = blocks[x_position][y_position]
         print("swapping_piece: ", swapping_piece)
