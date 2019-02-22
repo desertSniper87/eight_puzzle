@@ -20,18 +20,23 @@ def random_initial_blocks() -> List[List[int]]:
 
 if __name__ == '__main__':
 
-    # initial_blocks = random_initial_blocks()
-    initial_blocks = [[8, 0, 1],
-                      [3, 5, 2],
-                      [6, 4, 7]]
+    initial_blocks = random_initial_blocks()
+    # initial_blocks = [[8, 0, 1],
+    #                   [3, 5, 2],
+    #                   [6, 4, 7]]
 
 
 
-    pprint(initial_blocks)
+    # pprint(initial_blocks)
+
     initial = Board(initial_blocks)
-    print(initial.manhattan())
-    print(initial.hamming())
 
-    print(initial.is_goal())
+    # print(initial.manhattan())
+    # print(initial.hamming())
+
+    # print(initial.is_goal())
+
+    print(initial.row_containing_blank_piece())
+    print(initial.column_containing_blank_piece())
 
 

@@ -118,33 +118,35 @@ class Board(object):
 
         return manhattan
 
-    def blank_row(self):
-        """TODO: Docstring for blank_row.
+    def column_containing_blank_piece(self) -> int:
+        """TODO: Docstring for row_containing_blank_piece.
         :returns: TODO
 
         """
-        for i in range(CONST_DIM):
-            for j in range(CONST_DIM):
-                if self.blocks[i][j] == 0:
-                    return i
+        transpose_matrix = [*zip(*self.blocks)]
+
+        for idx, i in enumerate(transpose_matrix):
+            if 0 in i:
+                return idx + 1
+
+        print("blank not in board")
 
 
-        return i       
+        # return i
 
 
-    def blank_col(self):
-        """TODO: Docstring for blank_col.
+    def row_containing_blank_piece(self) -> int:
+        """TODO: Docstring for column_containing_blank_piece.
          :returns: TODO
 
          """
-        for i in range(CONST_DIM):
-            for j in range(CONST_DIM):
-                if self.blocks[i][j] == 0:
-                    return j
+        print(self.blocks)
 
+        for idx, i in enumerate(self.blocks):
+            if 0 in i:
+                return idx + 1
 
-
-        return i
+        print("blank not in board")
 
 
     def size(self):
@@ -180,9 +182,11 @@ class Board(object):
 
         return count
 
-    # def go(self, direction):
-    #     current_row =
-    #
-    #     if direction == 'UP':
+    def go(self, direction):
+        pass
+
+        # current_row =
+
+        # if direction == 'UP':
 
 
