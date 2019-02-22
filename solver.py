@@ -6,6 +6,10 @@
 
 from settings import CONST_DIM
 
+from copy import deepcopy as _cpy
+from pprint import pprint
+
+
 def max():
     """TODO: Docstring for max.
     :returns: TODO
@@ -47,7 +51,7 @@ class Board(object):
 
         """
 
-        print(self.blocks)
+        pprint(self.blocks)
 
     def is_goal(self):
         """TODO: Docstring for is_goal.
@@ -119,7 +123,7 @@ class Board(object):
         return manhattan
 
     def column_containing_blank_piece(self) -> int:
-        """TODO: Docstring for row_containing_blank_piece.
+        """ Indexed by zero
         :returns: TODO
 
         """
@@ -127,7 +131,7 @@ class Board(object):
 
         for idx, i in enumerate(transpose_matrix):
             if 0 in i:
-                return idx + 1
+                return idx
 
         print("blank not in board")
 
@@ -136,15 +140,13 @@ class Board(object):
 
 
     def row_containing_blank_piece(self) -> int:
-        """TODO: Docstring for column_containing_blank_piece.
+        """ Indexed by zero
          :returns: TODO
 
          """
-        print(self.blocks)
-
         for idx, i in enumerate(self.blocks):
             if 0 in i:
-                return idx + 1
+                return idx
 
         print("blank not in board")
 
@@ -183,10 +185,25 @@ class Board(object):
         return count
 
     def go(self, direction):
-        pass
+        current_zero_row = self.row_containing_blank_piece()
+        current_zero_column = self.column_containing_blank_piece()
 
-        # current_row =
+        # try:
+        if ((direction == 'UP' and current_zero_row == 0) or
+                (direction == 'DOWN' and current_zero_row == CONST_DIM) or
+                (direction == 'LEFT' and current_zero_column == 0) or
+                (direction == 'RIGHT' and current_zero_column == CONST_DIM)):
+            raise ValueError("TODO")
+        # except Exception as e:
+        #         raise NotImplemented
 
-        # if direction == 'UP':
+
+        if direction == 'UP':
+            initial_board = _cpy(self.blocks)
+
+            swapping_piece = initial_board[current_zero_row-1][current_zero_column]
+            print("swapping_piece: ", swapping_piece)
+
+
 
 

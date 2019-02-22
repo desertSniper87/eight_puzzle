@@ -3,7 +3,6 @@ from typing import List
 from solver import Board, CONST_DIM
 
 import random
-from pprint import pprint
 
 def random_initial_blocks() -> List[List[int]]:
     row_sample = []
@@ -27,16 +26,10 @@ if __name__ == '__main__':
 
 
 
-    # pprint(initial_blocks)
 
     initial = Board(initial_blocks)
+    initial.print_elements()
 
-    # print(initial.manhattan())
-    # print(initial.hamming())
-
-    # print(initial.is_goal())
-
-    print(initial.row_containing_blank_piece())
-    print(initial.column_containing_blank_piece())
+    initial.go('UP')
 
 
