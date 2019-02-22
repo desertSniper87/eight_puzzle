@@ -30,6 +30,7 @@ if __name__ == '__main__':
     initial = Board(initial_blocks)
     initial.print_elements()
 
-    initial.go('UP')
+    changed_board = initial.go('UP')
+    changed_board.print_elements()
 
 

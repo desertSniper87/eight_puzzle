@@ -3,6 +3,7 @@
 # Author            : desertsniper87 <torshobuet@gmail.com>
 # Date              : 29.12.2018
 # Last Modified Date: 29.12.2018
+from typing import Type
 
 from settings import CONST_DIM
 
@@ -184,25 +185,27 @@ class Board(object):
 
         return count
 
-    def go(self, direction):
+    def go(self, direction: str) -> object:
         current_zero_row = self.row_containing_blank_piece()
         current_zero_column = self.column_containing_blank_piece()
 
-        # try:
         if ((direction == 'UP' and current_zero_row == 0) or
                 (direction == 'DOWN' and current_zero_row == CONST_DIM) or
                 (direction == 'LEFT' and current_zero_column == 0) or
                 (direction == 'RIGHT' and current_zero_column == CONST_DIM)):
             raise ValueError("TODO")
-        # except Exception as e:
-        #         raise NotImplemented
 
 
         if direction == 'UP':
-            initial_board = _cpy(self.blocks)
+            blocks = _cpy(self.blocks)
 
-            swapping_piece = initial_board[current_zero_row-1][current_zero_column]
+            swapping_piece = blocks[current_zero_row-1][current_zero_column]
             print("swapping_piece: ", swapping_piece)
+
+            blocks[current_zero_row -1][current_zero_column] = 0
+            blocks[current_zero_row][current_zero_column] = swapping_piece
+
+            return Board(blocks)
 
 
 
