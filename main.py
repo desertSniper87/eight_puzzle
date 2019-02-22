@@ -19,32 +19,22 @@ def random_initial_blocks() -> List[List[int]]:
 
 if __name__ == '__main__':
 
-    # initial_blocks = random_initial_blocks()
-    initial_blocks = [
-        [3, 5, 2],
-        [8, 0, 1],
-        [6, 4, 7]]
+    initial_blocks = random_initial_blocks()
+    # initial_blocks = [
+    #     [3, 5, 2],
+    #     [8, 0, 1],
+    #     [6, 4, 7]]
 
-
-
+    DIRECTIONS = ['UP', 'DOWN', 'LEFT', 'RIGHT']
 
     initial = Board(initial_blocks)
     initial.print_elements()
+    # TODO: Ask a question about object inference in mypy
+    for direction in DIRECTIONS:
+        if initial.is_move_possible(direction):
+            new = initial.go(direction)
+            new.print_elements()
 
-    print('Going UP')
-    changed_board = initial.go('UP')
-    changed_board.print_elements()
-
-    print('Going DOWN')
-    changed_board = initial.go('DOWN')
-    changed_board.print_elements()
-
-    print('Going LEFT')
-    changed_board = initial.go('LEFT')
-    changed_board.print_elements()
-
-    print('Going RIGHT')
-    changed_board = initial.go('RIGHT')
-    changed_board.print_elements()
-
+        else:
+            print(f'Moving in {direction} not possible.')
 

@@ -52,7 +52,7 @@ class Board(object):
 
         """
 
-        pprint(self.blocks)
+        pprint(self.blocks, width=15)
 
     def is_goal(self):
         """TODO: Docstring for is_goal.
@@ -185,7 +185,7 @@ class Board(object):
 
         return count
 
-    def go(self, direction: str) -> object:
+    def is_move_possible(self, direction: str) -> bool:
         current_zero_row = self.row_containing_blank_piece()
         current_zero_column = self.column_containing_blank_piece()
 
@@ -195,8 +195,17 @@ class Board(object):
                 (direction == 'DOWN' and current_zero_row == board_move_limit) or
                 (direction == 'LEFT' and current_zero_column == 0) or
                 (direction == 'RIGHT' and current_zero_column == board_move_limit)):
-            raise ValueError("TODO")
+                    return False
 
+        return True
+
+
+    def go(self, direction: str) -> object:
+        current_zero_row = self.row_containing_blank_piece()
+        current_zero_column = self.column_containing_blank_piece()
+
+        if self.is_move_possible(direction) is False:
+            raise ValueError(f'Moving {direction} Not possible')
 
         blocks = _cpy(self.blocks)
 
