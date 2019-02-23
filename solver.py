@@ -229,7 +229,6 @@ class Board(object):
             y_position = current_zero_column + 1
 
         swapping_piece = blocks[x_position][y_position]
-        print("swapping_piece: ", swapping_piece)
 
         blocks[x_position][y_position] = 0
         blocks[current_zero_row][current_zero_column] = swapping_piece

@@ -4,6 +4,8 @@ from solver import Board, CONST_DIM
 
 import random
 
+from copy import deepcopy as _cpy
+
 def random_initial_blocks() -> List[List[int]]:
     row_sample = []
     initial_blocks = []
@@ -20,32 +22,36 @@ def random_initial_blocks() -> List[List[int]]:
 if __name__ == '__main__':
 
     # initial_blocks = random_initial_blocks()
+    # initial_blocks = [
+        # [8,  1,  3],
+        # [4,  0,  2],
+        # [7,  6,  5]
+    # ]
     initial_blocks = [
-        [8,  1,  3],
-        [4,  0,  2],
-        [7,  6,  5]
+        [0,  1,  3],
+        [4,  2,  5],
+        [7,  8,  6]
     ]
 
     DIRECTIONS = ['UP', 'DOWN', 'LEFT', 'RIGHT']
 
     initial = Board(initial_blocks)
     initial.print_elements("Initial")
-    print("initial.manhattan(): ", initial.manhattan())
 
-    # TODO: Ask a question about object inference in mypy stackoverflow
-    for direction in DIRECTIONS:
+    current_move = initial
+
+    while not current_move.is_goal():
         possible_moves: List[Board] = []
-        if initial.is_move_possible(direction):
-            new = initial.go(direction)
-            print(new.manhattan())
-            possible_moves.append(new)
-
-            recomended_move = min(possible_moves, key= lambda x: x.manhattan())
-            recomended_move.print_elements('recomended')
-            print('recomended_move.manhattan()', recomended_move.manhattan())
-            # new.print_elements(direction)
+        for direction in DIRECTIONS:
+            if current_move.is_move_possible(direction):
+                new = current_move.go(direction)
+                possible_moves.append(new)
 
 
-        else:
-            print(f'Moving in {direction} not possible.')
 
+            else:
+                print(f'Moving in {direction} not possible.')
+
+        current_move = min(possible_moves, key= lambda x: x.manhattan())
+        current_move.print_elements('recomended')
+        print('recomended_move.manhattan()', current_move.manhattan())
