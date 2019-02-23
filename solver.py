@@ -3,7 +3,8 @@
 # Author            : desertsniper87 <torshobuet@gmail.com>
 # Date              : 29.12.2018
 # Last Modified Date: 29.12.2018
-from typing import Type
+from typing import TypeVar
+Board = TypeVar('Board')
 
 from settings import CONST_DIM
 
@@ -46,12 +47,12 @@ class Board(object):
 
 
 
-    def print_elements(self):
+    def print_elements(self, board_name: str) -> None:
         """TODO: Docstring for print_elements.
         :returns: None
 
         """
-
+        print(board_name)
         pprint(self.blocks, width=15)
 
     def is_goal(self):
@@ -101,27 +102,29 @@ class Board(object):
         :returns: TODO
 
         """
-
         goal = make_goal_matrix()
-        c = 1
-        manhattan = 0
-        for i in range(CONST_DIM):
-            for j in range(CONST_DIM):
 
-                if self.blocks[i][j] != 0 and self.blocks[i][j] != goal[i][j]:
-                    row = self.blocks[i][j] // CONST_DIM
 
-                    if self.blocks[i][j] % CONST_DIM == 0:
-                        row -= 1
+        row_difference = 0
+        column_difference = 0
 
-                    row = abs(i - row)
+        for idx, i in enumerate(self.blocks):
+            for jdx, j in enumerate(i):
+                if j == 0:
+                    continue
+                # print("goal[i][j]: ", goal[idx][jdx])
+                # print('idx, jdx, i, j', idx, jdx, i, j)
 
-                    col = (self.blocks[i][j] - 1) % CONST_DIM
-                    col = abs(j - col)
+                for sx, sublist in enumerate(goal):
+                    if j in sublist:
+                        row_difference += abs(idx - sx)
 
-                    manhattan = row + col
+                for sx, sublist in enumerate([*zip(*goal)]):
+                    if j in sublist:
+                        column_difference += abs(jdx - sx)
 
-        return manhattan
+
+        return row_difference + column_difference
 
     def column_containing_blank_piece(self) -> int:
         """ Indexed by zero
@@ -200,7 +203,7 @@ class Board(object):
         return True
 
 
-    def go(self, direction: str) -> object:
+    def go(self, direction: str) -> Board:
         current_zero_row = self.row_containing_blank_piece()
         current_zero_column = self.column_containing_blank_piece()
 
